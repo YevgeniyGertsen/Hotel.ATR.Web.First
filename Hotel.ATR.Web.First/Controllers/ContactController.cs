@@ -13,6 +13,17 @@ namespace Hotel.ATR.Web.First.Controllers
         [HttpPost]
         public IActionResult Index(ContactForm form)
         {
+            ContactFormValidator rules = new ContactFormValidator();
+            var result = rules.Validate(form);
+
+            if(!result.IsValid)
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
             //if (string.IsNullOrWhiteSpace(form.name))
             //    ModelState.AddModelError("name", "Укажите свое имя");
 
