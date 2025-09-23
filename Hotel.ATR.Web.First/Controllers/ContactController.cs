@@ -5,13 +5,13 @@ namespace Hotel.ATR.Web.First.Controllers
 {
     public class ContactController : Controller
     {
-        public IActionResult Index(ContactForm contactForm = null)
+        public IActionResult Index()
         {
-            return View(contactForm);
+            return View();
         }
 
         [HttpPost]
-        public IActionResult SaveData(ContactForm form)
+        public IActionResult Index(ContactForm form)
         {
             if (string.IsNullOrWhiteSpace(form.name))
                 ModelState.AddModelError("name", "Укажите свое имя");
@@ -35,14 +35,7 @@ namespace Hotel.ATR.Web.First.Controllers
             //return RedirectToAction("Index");
             #endregion
 
-            if(ModelState.IsValid)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index", new { contactForm = form });
-            }           
+            return View(form);           
         }
     }
 }
