@@ -1,9 +1,4 @@
-﻿@model ContactForm
-@{
-
-    var result = TempData["Result"] != null ? TempData["Result"].ToString() : "";//ViewBag.Result;
-}
-<!-- Google Map Area Start -->
+﻿<!-- Google Map Area Start -->
 <div class="google-map-area">
     <!--  Map Section -->
     <div id="contacts" class="map-area">
@@ -37,30 +32,10 @@
                 </div>
             </div>
             <div class="col-md-8">
+                <h4 class="contact-title">Ваше сообщение отправлено!</h4>
+               
 
-                @if (!string.IsNullOrWhiteSpace(result))
-                {
-                    <h4 class="contact-title">@result</h4>
-                }
-                else
-                {
-                    <h4 class="contact-title">send your massage</h4>
-                    <form id="contact-form" action="/Contact/SaveData" method="post">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" asp-for="name" placeholder="Enter Name">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="email" asp-for="email" placeholder="Enter Email">
-                            </div>
-                            <div class="col-md-12">
-                                <textarea asp-for="message" cols="30" rows="10" placeholder="Message here"></textarea>
-                                <button type="submit" class="default-btn">SUBMIT</button>
-                            </div>
-                        </div>
-                    </form>
-                    <p class="form-messege"></p>
-                }               
+                <p class="form-messege"></p>
             </div>
         </div>
     </div>
@@ -142,7 +117,6 @@
     </div>
 </section>
 <!-- Newsletter Area End -->
-
 @section Styles
 {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSLSFRa0DyBj9VGzT7GM6SFbSMcG0YNBM"></script>
