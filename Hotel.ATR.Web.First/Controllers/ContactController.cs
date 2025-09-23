@@ -32,8 +32,8 @@ namespace Hotel.ATR.Web.First.Controllers
             ViewBag.Result = "Ваше сообщение отправлено!";
             TempData["Result"] = "Ваше сообщение отправлено!";
 
-            return RedirectToAction("Index");
-            //return View();
+            //return RedirectToAction("Index");
+            return View();
         }
     }
 }
