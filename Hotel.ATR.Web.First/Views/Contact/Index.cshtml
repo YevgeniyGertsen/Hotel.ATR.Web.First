@@ -49,13 +49,14 @@
                             <div class="col-md-6">
                                 <input type="text" asp-for="name" placeholder="Enter Name">
                                 <span asp-validation-for="name" class="text-danger"></span>
-
                             </div>
                             <div class="col-md-6">
                                 <input type="email" asp-for="email" placeholder="Enter Email">
+                                <span asp-validation-for="email" class="text-danger"></span>
                             </div>
                             <div class="col-md-12">
                                 <textarea asp-for="message" cols="30" rows="10" placeholder="Message here"></textarea>
+                                <span asp-validation-for="message" class="text-danger"></span>
                                 <button type="submit" class="default-btn">SUBMIT</button>
                             </div>
                         </div>

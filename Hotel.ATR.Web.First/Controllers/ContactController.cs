@@ -13,8 +13,8 @@ namespace Hotel.ATR.Web.First.Controllers
         [HttpPost]
         public IActionResult Index(ContactForm form)
         {
-            if (string.IsNullOrWhiteSpace(form.name))
-                ModelState.AddModelError("name", "Укажите свое имя");
+            //if (string.IsNullOrWhiteSpace(form.name))
+            //    ModelState.AddModelError("name", "Укажите свое имя");
 
             #region old
             //1
