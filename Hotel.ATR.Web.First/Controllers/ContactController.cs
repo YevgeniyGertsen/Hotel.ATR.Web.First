@@ -1,11 +1,13 @@
 ﻿using Hotel.ATR.Web.First.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.ATR.Web.First.Controllers
 {
+    
     public class ContactController : Controller
     {
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();

@@ -1,5 +1,7 @@
-using FluentValidation;
+﻿using FluentValidation;
 using Hotel.ATR.Web.First.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +10,19 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IValidator<ContactForm>, ContactFormValidator>();
 
+//настройка посредника для подключения к БазеДанных
+string conn = builder.Configuration.GetConnectionString("DefaultConnection");
 
+builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+options.UseSqlServer(conn));
+
+//настройка Identity для работы с 1- класслм AppUser 2- выбор посредника для работы с БД
+builder.Services
+    .AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppIdentityDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Authenticate/Login");
 
 
 
@@ -22,6 +36,9 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+
+//---->
+app.UseAuthentication();
 
 app.UseAuthorization();
 
