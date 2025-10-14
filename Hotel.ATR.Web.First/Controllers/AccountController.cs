@@ -1,18 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hotel.ATR.Web.First.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.ATR.Web.First.Controllers
 {
     public class AccountController : Controller
     {
+        private UserManager<AppUser> _userManager;
+        private SignInManager<AppUser> _signInManager;
+
+        public AccountController(UserManager<AppUser> userManager, 
+            SignInManager<AppUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(string userName, string password)
+        public async Task<IActionResult> Login(string userName, string password)
         {
+            AppUser user = await _userManager.FindByEmailAsync(userName);
+            if(user!=null)
+            {
+                await _signInManager.SignOutAsync();
 
+                var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            ModelState.AddModelError("userName", "неправильный логин или пароль");
 
             return View();
         }
