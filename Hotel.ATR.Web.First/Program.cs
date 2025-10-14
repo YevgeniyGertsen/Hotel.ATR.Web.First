@@ -26,6 +26,7 @@ builder.Services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Authentic
 
 
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
