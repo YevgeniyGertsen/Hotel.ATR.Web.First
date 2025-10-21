@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services
+    .AddControllersWithViews()
+    .AddViewLocalization();
 
 builder.Services.AddScoped<IValidator<ContactForm>, ContactFormValidator>();
 
@@ -23,6 +25,9 @@ builder.Services
     .AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Account/Login");
+
+//Добавляем локализацию
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 
 

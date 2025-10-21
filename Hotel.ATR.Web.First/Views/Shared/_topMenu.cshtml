@@ -17,7 +17,15 @@
             </li>
 
             <li>
-                @Html.ActionLink("LOGIN", "Login", "Account")
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="#">@User.Identity.Name | </a> 
+                    @Html.ActionLink("LOGOUT", "Logout", "Account")
+                }
+                else
+                {
+                    @Html.ActionLink("LOGIN", "Login", "Account")
+                }
             </li>
 
         </ul>
