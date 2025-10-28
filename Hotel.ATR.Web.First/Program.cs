@@ -3,6 +3,7 @@ using Hotel.ATR.Web.First.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +46,17 @@ builder.Services.Configure<RequestLocalizationOptions>(
         options.SupportedCultures = supportedCulture;
         options.SupportedUICultures = supportedCulture;
     });
+
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("Log/hotelatrLog.txt", rollingInterval: RollingInterval.Hour)
+    .MinimumLevel.Debug()
+    .WriteTo.Seq("http://localhost:5341")
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 
 
