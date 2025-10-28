@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
 using Hotel.ATR.Web.First.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,20 @@ builder.Services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Account/L
 //Добавляем локализацию
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+builder.Services.Configure<RequestLocalizationOptions>(
+    options =>
+    {
+        var supportedCulture = new[]
+        {
+            new CultureInfo("kk-KZ"),
+            new CultureInfo("ru-RU"),
+            new CultureInfo("en-US")
+        };
+
+        options.DefaultRequestCulture = new RequestCulture(culture: "kk-KZ", uiCulture: "kk-KZ");
+        options.SupportedCultures = supportedCulture;
+        options.SupportedUICultures = supportedCulture;
+    });
 
 
 
@@ -40,6 +56,15 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
+
+var supportedCulture = new[] { "kk-KZ", "ru-RU", "en-US" };
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture("kk-KZ")
+    .AddSupportedCultures(supportedCulture)
+    .AddSupportedUICultures(supportedCulture);
+
+app.UseRequestLocalization(localizationOptions);
+
 
 app.UseRouting();
 

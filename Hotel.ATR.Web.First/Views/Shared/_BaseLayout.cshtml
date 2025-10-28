@@ -39,7 +39,8 @@
                     <div class="header-top fix">
                         <div class="header-contact">
                             <span class="text-theme">Contact:</span>
-                            <span>0088-234-675-827</span>
+                            <span> | </span>
+                            @Html.Partial("_lang")
                         </div>
                         <div class="header-links">
                             <a href="https://www.facebook.com/"><i class="zmdi zmdi-facebook"></i></a>
@@ -102,6 +103,22 @@
     <script src="~/js/jquery.magnific-popup.js"></script>
     <script src="~/js/plugins.js"></script>
     <script src="~/js/main.js"></script>
+
+    <script>
+        $('#cultureList').on('change', function () {
+            $.ajax({
+                url: '/home/Setlanguage',
+                data: { culture: $(this).val() },
+                dataType: 'json',
+                type: 'POST',
+                success: function (response) {
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                }
+            });
+        });
+    </script>
 
     @RenderSection("Scripts", false)
 </body>

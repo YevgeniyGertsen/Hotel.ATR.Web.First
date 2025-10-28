@@ -33,14 +33,15 @@
                     <div class="logo">
                         <a href="@Url.Action("Index", "Home")">
                             <img src="img/logo/logo.png" alt="HotelATR">
-                            </a>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-8 col-sm-8 hidden-xs">
                     <div class="header-top fix">
                         <div class="header-contact">
                             <span class="text-theme">Contact:</span>
-                            <span>0088-234-675-827</span>
+                            <span> | </span>
+                            @Html.Partial("_lang")
                         </div>
                         <div class="header-links">
                             <a href="https://www.facebook.com/"><i class="zmdi zmdi-facebook"></i></a>
@@ -51,7 +52,7 @@
                         </div>
                     </div>
                     <!-- Mainmenu Start -->
-                   @Html.Partial("_topMenu")
+                    @Html.Partial("_topMenu")
                     <!-- Mainmenu End -->
                 </div>
             </div>
@@ -105,17 +106,12 @@
         </div>
     </section>
     <!-- Background Area End -->
-
-
     @RenderBody()
 
 
     <!-- Footer Area Start -->
     @Html.Partial("_footerMenu")
     <!-- Footer Area End -->
-
-
-
     <!-- All js here -->
     <script src="~/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
@@ -130,6 +126,24 @@
     <script src="~/js/jquery.magnific-popup.js"></script>
     <script src="~/js/plugins.js"></script>
     <script src="~/js/main.js"></script>
+
+    <script>
+        $('#cultureList').on('change', function () {
+            $.ajax({
+                url: '/home/Setlanguage',
+                data: { culture: $(this).val() },
+                dataType: 'json',
+                type: 'POST',
+                success: function (response) {
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                }
+            });
+        });
+    </script>
+
+    @RenderSection("Scripts", false)
 </body>
 </html>
 

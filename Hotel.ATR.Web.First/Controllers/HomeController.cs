@@ -1,5 +1,6 @@
 using Hotel.ATR.Web.First.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -17,21 +18,17 @@ namespace Hotel.ATR.Web.First.Controllers
             _userManager = userManager;
         }
 
-
-        public  async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             //AppUser user = new AppUser();
             //user.UserName = "admin";
             //user.Email = "gersen.e.a@gmail.com";
-            
+
             //var result = await  _userManager.CreateAsync(user, "Gg11011988@");
 
 
             return View();
         }
-
-
-
         public IActionResult Privacy()
         {
             return View();
@@ -41,6 +38,16 @@ namespace Hotel.ATR.Web.First.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public JsonResult Setlanguage(string culture)
+        {
+            Response.Cookies.Append(
+              CookieRequestCultureProvider.DefaultCookieName,
+              CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+              new CookieOptions { Expires = DateTimeOffset.UtcNow.AddHours(1) });
+
+            return Json(new { culture });
         }
     }
 }
