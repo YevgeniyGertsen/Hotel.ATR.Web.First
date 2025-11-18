@@ -10,7 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services
-    .AddControllersWithViews()
+    .AddControllersWithViews(options =>
+    {
+        options.Filters.Add<CustomHeaderRecourceFilter>();
+        options.Filters.Add<GlobalExceptionFilter>();
+    })
     .AddViewLocalization();
 
 builder.Services.AddScoped<IValidator<ContactForm>, ContactFormValidator>();

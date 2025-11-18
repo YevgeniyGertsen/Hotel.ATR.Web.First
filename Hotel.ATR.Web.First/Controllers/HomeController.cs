@@ -18,26 +18,40 @@ namespace Hotel.ATR.Web.First.Controllers
             _userManager = userManager;
         }
 
+        //[IEFilter]
+        [TimeElapsed]
         public async Task<IActionResult> Index()
         {
+            throw new Exception("My test exception");
+
+            //->>>IActionFilter
+
             //AppUser user = new AppUser();
             //user.UserName = "admin";
             //user.Email = "gersen.e.a@gmail.com";
 
             //var result = await  _userManager.CreateAsync(user, "Gg11011988@");
 
+            //->>>>>IActionFilter
 
+            //-->>>>>>>>>>>Result Executing
             return View();
+            //-->>>>>>>>>>>Result Executed 
         }
+
         public IActionResult Privacy()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+       
+        public IActionResult Error(string ErrorMessage)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                ErrorMessage = ErrorMessage,
+            });
         }
 
         public JsonResult Setlanguage(string culture)
