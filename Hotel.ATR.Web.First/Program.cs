@@ -25,6 +25,12 @@ string conn = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppIdentityDbContext>(options =>
 options.UseSqlServer(conn));
 
+
+string conn2 = builder.Configuration.GetConnectionString("BaseConnection");
+builder.Services.AddDbContext<AppDbContext>(options =>
+options.UseSqlServer(conn2));
+
+
 //настройка Identity для работы с 1- класслм AppUser 2- выбор посредника для работы с БД
 builder.Services
     .AddIdentity<AppUser, IdentityRole>()

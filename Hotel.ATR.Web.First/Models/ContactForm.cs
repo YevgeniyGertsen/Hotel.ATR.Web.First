@@ -4,6 +4,9 @@ namespace Hotel.ATR.Web.First.Models
 {
     public class ContactForm
     {
+        public int Id { get; set; }
+        public DateTime CreateDate { get; set; }
+
         [Required (ErrorMessage ="Поле Name обязательно к заполнению")]
         public string name { get; set; }
 

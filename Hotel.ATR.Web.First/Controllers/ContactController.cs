@@ -4,9 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.ATR.Web.First.Controllers
 {
-    
     public class ContactController : Controller
     {
+        private AppDbContext db;
+        public ContactController(AppDbContext db)
+        {
+            this.db = db;
+        }
+
         [Authorize]
         public IActionResult Index()
         {
@@ -29,6 +34,9 @@ namespace Hotel.ATR.Web.First.Controllers
 
             //if (string.IsNullOrWhiteSpace(form.name))
             //    ModelState.AddModelError("name", "Укажите свое имя");
+
+            db.ContactForms.Add(form);
+            db.SaveChanges();
 
             #region old
             //1
